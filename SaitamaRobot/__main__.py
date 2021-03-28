@@ -74,7 +74,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 Hi {}, my name is {}!
-I am an Anime themed group management bot.
+I am a group management bot with enough features for your assistance.
 You can find my list of available commands with /help.
 """
 
@@ -100,10 +100,8 @@ And the following:
 
 SAITAMA_IMG = "https://telegra.ph/file/93b77fa9ddb4ba5cd5c4b.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
- You can support the project via [Paypal](ko-fi.com/sawada) or by contacting @Sawada \
- Supporting isnt always financial! \
- Those who cannot provide monetary support are welcome to help us develop the bot at @OnePunchDev."""
+DONATE_STRING = """Thank you for your concerns towards donating.
+                    But I find it isn't necessary at the moment :)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
