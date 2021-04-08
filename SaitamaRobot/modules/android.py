@@ -33,7 +33,7 @@ def magisk(update, context):
             f'• Uninstaller - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({data["uninstaller"]["link"]})\n\n'
         )
 
-    del_msg = update.message.reply_text(
+    del_msg = update.effective_message.reply_text(
         "*Latest Magisk Releases:*\n{}".format(releases),
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
