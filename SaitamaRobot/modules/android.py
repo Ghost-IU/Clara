@@ -16,21 +16,28 @@ DEVICES_DATA = "https://raw.githubusercontent.com/androidtrackers/certified-andr
 @run_async
 @typing_action
 def magisk(update, context):
-    url = "https://github.com/topjohnwu/magisk_files/"
+    url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     releases = ""
     for type, branch in {
         "Stable": ["master/stable", "master"],
-        "Canary (release)": ["canary/release", "canary"],
-        "Canary (debug)": ["canary/debug", "canary"],
+        "Beta": ["master/beta", "master"],
+        "Canary": ["canary/canary", "canary"],
     }.items():
         data = get(url + branch[0] + ".json").json()
-        releases += (
-            f"*{type}*: \n"
-            f"• [Changelog](https://github.com/topjohnwu/magisk_files/blob/{branch[1]}/notes.md)\n"
-            f'• Zip - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({data["magisk"]["link"]}) \n'
-            f'• App - [{data["app"]["version"]}-{data["app"]["versionCode"]}]({data["app"]["link"]}) \n'
-            f'• Uninstaller - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({data["uninstaller"]["link"]})\n\n'
-        )
+        if type != "Canary":
+            releases += (
+                f"*{type}*: \n"
+                f'• Zip - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({data["magisk"]["link"]}) - [Changelog]({data["magisk"]["note"]})\n'
+                f'• App - [{data["app"]["version"]}-{data["app"]["versionCode"]}]({data["app"]["link"]}) - [Changelog]({data["app"]["note"]})\n'
+                f'• Uninstaller - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({data["uninstaller"]["link"]})\n\n'
+            )
+        else:
+            releases += (
+                f"*{type}*: \n"
+                f'• Zip - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({url}{branch[1]}/{data["magisk"]["link"]}) - [Changelog]({url}{branch[1]}/{data["magisk"]["note"]})\n'
+                f'• App - [{data["app"]["version"]}-{data["app"]["versionCode"]}]({url}{branch[1]}/{data["app"]["link"]}) - [Changelog]({url}{branch[1]}/{data["app"]["note"]})\n'
+                f'• Uninstaller - [{data["magisk"]["version"]}-{data["magisk"]["versionCode"]}]({url}{branch[1]}/{data["uninstaller"]["link"]})\n\n'
+            )
 
     del_msg = update.message.reply_text(
         "*Latest Magisk Releases:*\n{}".format(releases),
