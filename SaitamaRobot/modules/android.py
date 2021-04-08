@@ -35,7 +35,7 @@ def magisk(update, context):
 
     del_msg = update.message.reply_text(
         "*Latest Magisk Releases:*\n{}".format(releases),
-        parse_mode=ParseMode.HTML,
+        parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )
     time.sleep(300)
@@ -56,8 +56,8 @@ def device(update, context):
     if len(args) == 0:
         reply = "No codename provided, write a codename for fetching informations."
         del_msg = update.effective_message.reply_text(
-            "{}".format(reply),t
-            parse_mode=ParseMode.HTML,
+            "{}".format(reply),
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
         time.sleep(5)
@@ -87,7 +87,7 @@ def device(update, context):
         reply = f"Couldn't find info about {device}!\n"
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
         time.sleep(5)
@@ -112,7 +112,7 @@ def twrp(update, context):
         reply = "No codename provided, write a codename for fetching informations."
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
         time.sleep(5)
@@ -131,7 +131,7 @@ def twrp(update, context):
         reply = f"Couldn't find twrp downloads for {device}!\n"
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
         time.sleep(5)
@@ -167,7 +167,7 @@ def twrp(update, context):
 
         update.message.reply_text(
             "{}".format(reply),
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
 
