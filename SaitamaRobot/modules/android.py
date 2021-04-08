@@ -16,7 +16,7 @@ DEVICES_DATA = "https://raw.githubusercontent.com/androidtrackers/certified-andr
 @run_async
 @typing_action
 def magisk(update, context):
-    url = "https://github.com/topjohnwu/magisk_files/"
+    url = "https://github.com/topjohnwu/magisk_files/blob/"
     releases = ""
     for type, branch in {
         "Stable": ["master/stable", "master"],
