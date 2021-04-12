@@ -22,7 +22,7 @@ from SaitamaRobot import (
     WOLVES,
     INFOPIC,
     dispatcher,
-   )
+)
 from SaitamaRobot.__main__ import STATS, TOKEN, USER_INFO
 import SaitamaRobot.modules.sql.userinfo_sql as sql
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
