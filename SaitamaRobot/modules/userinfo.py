@@ -7,7 +7,7 @@ from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon import events
 
-from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update
+from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update, MessageEntity
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.ext.dispatcher import run_async
 from telegram.error import BadRequest
@@ -22,6 +22,7 @@ from SaitamaRobot import (
     WOLVES,
     INFOPIC,
     dispatcher,
+    sw,
 )
 from SaitamaRobot.__main__ import STATS, TOKEN, USER_INFO
 import SaitamaRobot.modules.sql.userinfo_sql as sql
@@ -30,7 +31,7 @@ from SaitamaRobot.modules.sql.afk_sql import is_afk, check_afk_status
 from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
 from SaitamaRobot.modules.helper_funcs.chat_status import sudo_plus
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
-from SaitamaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
+from SaitamaRobot import telethn as SaitamaTelethonClient
 
 
 def no_by_per(totalhp, percentage):
@@ -93,10 +94,6 @@ def hpmanager(user):
     # _, fbanlist = get_user_fbanlist(user.id)
     # new_hp -= no_by_per(total_hp, 2 * len(fbanlist))
 
-    # Commenting out fban health decrease cause it wasnt working and isnt needed ig.
-    # _, fbanlist = get_user_fbanlist(user.id)
-    # new_hp -= no_by_per(total_hp, 2 * len(fbanlist))
-
     # Bad status effects:
     # gbanned users will always have 5% HP from max HP
     # Example: If HP is 100 but gbanned
@@ -153,31 +150,31 @@ def get_id(update: Update, context: CallbackContext):
 
         if chat.type == "private":
             msg.reply_text(
-                f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
+                f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
             )
 
         else:
             msg.reply_text(
-                f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
+                f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
             )
 
 
 @SaitamaTelethonClient.on(
     events.NewMessage(
-        pattern="/ginfo ", from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])
-    )
+        pattern="/ginfo ", from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or []),
+    ),
 )
 async def group_info(event) -> None:
     chat = event.text.split(" ", 1)[1]
     try:
         entity = await event.client.get_entity(chat)
         totallist = await event.client.get_participants(
-            entity, filter=ChannelParticipantsAdmins
+            entity, filter=ChannelParticipantsAdmins,
         )
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
     except:
         await event.reply(
-            "Can't for some reason, maybe it is a private one or that I am banned there."
+            "Can't for some reason, maybe it is a private one or that I am banned there.",
         )
         return
     msg = f"**ID**: `{entity.id}`"
@@ -298,14 +295,14 @@ def info(update: Update, context: CallbackContext):
 
     if disaster_level_present:
         text += ' [<a href="https://t.me/OnePunchUpdates/155">?</a>]'.format(
-            bot.username
+            bot.username,
         )
 
     try:
         user_member = chat.get_member(user.id)
         if user_member.status == "administrator":
             result = requests.post(
-                f"https://api.telegram.org/bot{TOKEN}/getChatMember?chat_id={chat.id}&user_id={user.id}"
+                f"https://api.telegram.org/bot{TOKEN}/getChatMember?chat_id={chat.id}&user_id={user.id}",
             )
             result = result.json()["result"]
             if "custom_title" in result.keys():
@@ -339,12 +336,12 @@ def info(update: Update, context: CallbackContext):
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
-                text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                text, parse_mode=ParseMode.HTML, disable_web_page_preview=True,
             )
 
     else:
         message.reply_text(
-            text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+            text, parse_mode=ParseMode.HTML, disable_web_page_preview=True,
         )
 
     rep.delete()
@@ -372,7 +369,7 @@ def about_me(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = message.reply_to_message.from_user.first_name
         update.effective_message.reply_text(
-            f"{username} hasn't set an info message about themselves yet!"
+            f"{username} hasn't set an info message about themselves yet!",
         )
     else:
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
@@ -405,8 +402,8 @@ def set_about_me(update: Update, context: CallbackContext):
         else:
             message.reply_text(
                 "The info needs to be under {} characters! You have {}.".format(
-                    MAX_MESSAGE_LENGTH // 4, len(info[1])
-                )
+                    MAX_MESSAGE_LENGTH // 4, len(info[1]),
+                ),
             )
 
 
@@ -440,11 +437,11 @@ def about_bio(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = user.first_name
         update.effective_message.reply_text(
-            f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio"
+            f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio",
         )
     else:
         update.effective_message.reply_text(
-            "You haven't had a bio set about yourself yet!"
+            "You haven't had a bio set about yourself yet!",
         )
 
 
@@ -460,7 +457,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == message.from_user.id:
             message.reply_text(
-                "Ha, you can't set your own bio! You're at the mercy of others here..."
+                "Ha, you can't set your own bio! You're at the mercy of others here...",
             )
             return
 
@@ -470,26 +467,26 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio."
+                "Erm... yeah, I only trust Heroes Association to set my bio.",
             )
             return
 
         text = message.text
         bio = text.split(
-            None, 1
+            None, 1,
         )  # use python's maxsplit to only remove the cmd, hence keeping newlines.
 
         if len(bio) == 2:
             if len(bio[1]) < MAX_MESSAGE_LENGTH // 4:
                 sql.set_user_bio(user_id, bio[1])
                 message.reply_text(
-                    "Updated {}'s bio!".format(repl_message.from_user.first_name)
+                    "Updated {}'s bio!".format(repl_message.from_user.first_name),
                 )
             else:
                 message.reply_text(
                     "Bio needs to be under {} characters! You tried to set {}.".format(
-                        MAX_MESSAGE_LENGTH // 4, len(bio[1])
-                    )
+                        MAX_MESSAGE_LENGTH // 4, len(bio[1]),
+                    ),
                 )
     else:
         message.reply_text("Reply to someone to set their bio!")

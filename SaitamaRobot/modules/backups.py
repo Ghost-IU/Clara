@@ -53,7 +53,7 @@ def import_data(update, context):
             file_info = context.bot.get_file(msg.reply_to_message.document.file_id)
         except BadRequest:
             msg.reply_text(
-                "Try downloading and uploading the file yourself again, This one seem broken to me!"
+                "Try downloading and uploading the file yourself again, This one seem broken to me!",
             )
             return
 
@@ -65,7 +65,7 @@ def import_data(update, context):
         # only import one group
         if len(data) > 1 and str(chat.id) not in data:
             msg.reply_text(
-                "There are more than one group in this file and the chat.id is not same! How am i supposed to import it?"
+                "There are more than one group in this file and the chat.id is not same! How am i supposed to import it?",
             )
             return
 
@@ -74,7 +74,7 @@ def import_data(update, context):
             if data.get(str(chat.id)) is None:
                 if conn:
                     text = "Backup comes from another chat, I can't return another chat to chat *{}*".format(
-                        chat_name
+                        chat_name,
                     )
                 else:
                     text = "Backup comes from another chat, I can't return another chat to this chat"
@@ -85,7 +85,7 @@ def import_data(update, context):
         try:
             if str(context.bot.id) != str(data[str(chat.id)]["bot"]):
                 return msg.reply_text(
-                    "Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be."
+                    "Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be.",
                 )
         except Exception:
             pass
@@ -142,6 +142,28 @@ def export_data(update, context):
         chat_id = update.effective_chat.id
         # chat_name = update.effective_message.chat.title
 
+    jam = time.time()
+    new_jam = jam + 10800
+    checkchat = get_chat(chat_id, chat_data)
+    if checkchat.get("status"):
+        if jam <= int(checkchat.get("value")):
+            timeformatt = time.strftime(
+                "%H:%M:%S %d/%m/%Y", time.localtime(checkchat.get("value")),
+            )
+            update.effective_message.reply_text(
+                "You can only backup once a day!\nYou can backup again in about `{}`".format(
+                    timeformatt,
+                ),
+                parse_mode=ParseMode.MARKDOWN,
+            )
+            return
+        else:
+            if user.id != OWNER_ID:
+                put_chat(chat_id, new_jam, chat_data)
+    else:
+        if user.id != OWNER_ID:
+            put_chat(chat_id, new_jam, chat_data)
+
     note_list = sql.get_all_chat_notes(chat_id)
     backup = {}
     # button = ""
@@ -163,47 +185,47 @@ def export_data(update, context):
                 countbtn += 1
                 if btn.same_line:
                     buttonlist.append(
-                        ("{}".format(btn.name), "{}".format(btn.url), True)
+                        ("{}".format(btn.name), "{}".format(btn.url), True),
                     )
                 else:
                     buttonlist.append(
-                        ("{}".format(btn.name), "{}".format(btn.url), False)
+                        ("{}".format(btn.name), "{}".format(btn.url), False),
                     )
             isicat += "###button###: {}<###button###>{}<###splitter###>".format(
-                note.value, str(buttonlist)
+                note.value, str(buttonlist),
             )
             buttonlist.clear()
         elif note.msgtype == 2:
             isicat += "###sticker###:{}<###splitter###>".format(note.file)
         elif note.msgtype == 3:
             isicat += "###file###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         elif note.msgtype == 4:
             isicat += "###photo###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         elif note.msgtype == 5:
             isicat += "###audio###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         elif note.msgtype == 6:
             isicat += "###voice###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         elif note.msgtype == 7:
             isicat += "###video###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         elif note.msgtype == 8:
             isicat += "###video_note###:{}<###TYPESPLIT###>{}<###splitter###>".format(
-                note.file, note.value
+                note.file, note.value,
             )
         else:
             isicat += "{}<###splitter###>".format(note.value)
     notes = {
         "#{}".format(namacat.split("<###splitter###>")[x]): "{}".format(
-            isicat.split("<###splitter###>")[x]
+            isicat.split("<###splitter###>")[x],
         )
         for x in range(count)
     }
@@ -284,7 +306,7 @@ def export_data(update, context):
                     curr_restr.media,
                     curr_restr.other,
                     curr_restr.preview,
-                ]
+                ],
             ),
         }
     else:
@@ -314,7 +336,7 @@ def export_data(update, context):
         context.bot.sendMessage(
             JOIN_LOGGER,
             "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(
-                chat.title, chat_id, tgl
+                chat.title, chat_id, tgl,
             ),
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -331,6 +353,21 @@ def export_data(update, context):
         parse_mode=ParseMode.MARKDOWN,
     )
     os.remove("SaitamaRobot{}.backup".format(chat_id))  # Cleaning file
+
+
+# Temporary data
+def put_chat(chat_id, value, chat_data):
+    # print(chat_data)
+    status = value is not False
+    chat_data[chat_id] = {"backups": {"status": status, "value": value}}
+
+
+def get_chat(chat_id, chat_data):
+    # print(chat_data)
+    try:
+        return chat_data[chat_id]["backups"]
+    except KeyError:
+        return {"status": False, "value": False}
 
 
 __mod_name__ = "Backups"

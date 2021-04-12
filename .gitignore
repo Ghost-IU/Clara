@@ -6,6 +6,10 @@ SaitamaRobot/config.ini
 log.txt
 kangsticker.png
 updates.txt
+<<<<<<< HEAD
+=======
+start_service.bat
+>>>>>>> 61058e947527cb89c5d7f6b50adc88e7f970b228
 
 # Session files
 SaitamaRobot/*.session
@@ -149,4 +153,8 @@ dmypy.json
 .project
 .pydevproject
 .directory
+<<<<<<< HEAD
 .vscode
+=======
+.vscode
+>>>>>>> 61058e947527cb89c5d7f6b50adc88e7f970b228
