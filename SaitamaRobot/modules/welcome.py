@@ -15,7 +15,6 @@ from SaitamaRobot import (
     DEMONS,
     TIGERS,
     WOLVES,
-    sw,
     dispatcher,
     JOIN_LOGGER,
 )
