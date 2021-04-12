@@ -93,7 +93,7 @@ def gettime(update: Update, context: CallbackContext):
 
 __help__ = """
  • `/time <query>`*:* Gives information about a timezone.
-
+"""
 
 TIME_HANDLER = DisableAbleCommandHandler("time", gettime)
 
