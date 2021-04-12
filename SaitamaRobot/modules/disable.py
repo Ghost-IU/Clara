@@ -219,7 +219,8 @@ if is_module_loaded(FILENAME):
 
             if sql.enable_command(chat.id, enable_cmd):
                 update.effective_message.reply_text(
-                    f"Enabled the use of `{enable_cmd}`", parse_mode=ParseMode.MARKDOWN,
+                    f"Enabled the use of `{enable_cmd}`",
+                    parse_mode=ParseMode.MARKDOWN,
                 )
             else:
                 update.effective_message.reply_text("Is that even disabled?")
@@ -311,7 +312,8 @@ if is_module_loaded(FILENAME):
     def commands(update: Update, context: CallbackContext):
         chat = update.effective_chat
         update.effective_message.reply_text(
-            build_curr_disabled(chat.id), parse_mode=ParseMode.MARKDOWN,
+            build_curr_disabled(chat.id),
+            parse_mode=ParseMode.MARKDOWN,
         )
 
     def __stats__():

@@ -152,7 +152,9 @@ def get_welcome_type(msg: Message):
             )  # set correct offset relative to command + notename
             entities = msg.parse_entities()
         text, buttons = button_markdown_parser(
-            argumen, entities=entities, offset=offset,
+            argumen,
+            entities=entities,
+            offset=offset,
         )
 
     if not data_type:

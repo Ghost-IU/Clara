@@ -28,7 +28,9 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
             if progress_message:
                 try:
                     bot.editMessageText(
-                        progress_bar, chat_id, progress_message.message_id,
+                        progress_bar,
+                        chat_id,
+                        progress_message.message_id,
                     )
                 except:
                     pass
@@ -73,7 +75,8 @@ def dbcleanup(update: Update, context: CallbackContext):
     buttons = [[InlineKeyboardButton("Cleanup DB", callback_data="db_cleanup")]]
 
     update.effective_message.reply_text(
-        reply, reply_markup=InlineKeyboardMarkup(buttons),
+        reply,
+        reply_markup=InlineKeyboardMarkup(buttons),
     )
 
 

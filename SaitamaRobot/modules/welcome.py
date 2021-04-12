@@ -163,7 +163,9 @@ def new_member(update: Update, context: CallbackContext):
 
         if new_mem.id == bot.id and not SaitamaRobot.ALLOW_CHATS:
             with suppress(BadRequest):
-                update.effective_message.reply_text(f"Groups are disabled for {bot.first_name}, I'm outta here.")
+                update.effective_message.reply_text(
+                    f"Groups are disabled for {bot.first_name}, I'm outta here."
+                )
             bot.leave_chat(update.effective_chat.id)
             return
 
@@ -189,7 +191,8 @@ def new_member(update: Update, context: CallbackContext):
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oh, Genos? Let's get this moving.", reply_to_message_id=reply,
+                    "Oh, Genos? Let's get this moving.",
+                    reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -240,7 +243,8 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Whitelisted
             elif new_mem.id in TIGERS:
                 update.effective_message.reply_text(
-                    "Roar! A Tiger disaster just joined!", reply_to_message_id=reply,
+                    "Roar! A Tiger disaster just joined!",
+                    reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -252,7 +256,8 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Tigers
             elif new_mem.id in WOLVES:
                 update.effective_message.reply_text(
-                    "Awoo! A Wolf disaster just joined!", reply_to_message_id=reply,
+                    "Awoo! A Wolf disaster just joined!",
+                    reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -279,7 +284,9 @@ def new_member(update: Update, context: CallbackContext):
                     bot.send_message(
                         JOIN_LOGGER,
                         "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>\n<b>Creator:</b> <code>{}</code>".format(
-                            html.escape(chat.title), chat.id, html.escape(creator),
+                            html.escape(chat.title),
+                            chat.id,
+                            html.escape(creator),
                         ),
                         parse_mode=ParseMode.HTML,
                     )
@@ -287,12 +294,14 @@ def new_member(update: Update, context: CallbackContext):
                     bot.send_message(
                         JOIN_LOGGER,
                         "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>".format(
-                            html.escape(chat.title), chat.id,
+                            html.escape(chat.title),
+                            chat.id,
                         ),
                         parse_mode=ParseMode.HTML,
                     )
                 update.effective_message.reply_text(
-                    "Watashi ga kita!", reply_to_message_id=reply,
+                    "Watashi ga kita!",
+                    reply_to_message_id=reply,
                 )
                 continue
 
@@ -325,7 +334,8 @@ def new_member(update: Update, context: CallbackContext):
                         username = mention
 
                     valid_format = escape_invalid_curly_brackets(
-                        cust_welcome, VALID_WELCOME_FORMATTERS,
+                        cust_welcome,
+                        VALID_WELCOME_FORMATTERS,
                     )
                     res = valid_format.format(
                         first=escape_markdown(first_name),
@@ -553,7 +563,8 @@ def left_member(update: Update, context: CallbackContext):
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oi! Genos! He left..", reply_to_message_id=reply,
+                    "Oi! Genos! He left..",
+                    reply_to_message_id=reply,
                 )
                 return
 
@@ -590,7 +601,8 @@ def left_member(update: Update, context: CallbackContext):
                     username = mention
 
                 valid_format = escape_invalid_curly_brackets(
-                    cust_goodbye, VALID_WELCOME_FORMATTERS,
+                    cust_goodbye,
+                    VALID_WELCOME_FORMATTERS,
                 )
                 res = valid_format.format(
                     first=escape_markdown(first_name),
@@ -717,7 +729,9 @@ def goodbye(update: Update, context: CallbackContext):
 
             else:
                 ENUM_FUNC_MAP[goodbye_type](
-                    chat.id, goodbye_m, parse_mode=ParseMode.MARKDOWN,
+                    chat.id,
+                    goodbye_m,
+                    parse_mode=ParseMode.MARKDOWN,
                 )
 
     elif len(args) >= 1:
@@ -940,7 +954,8 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
                 update.effective_message.reply_text("Welcome clean service is : on")
             else:
                 update.effective_message.reply_text(
-                    "Invalid option", parse_mode=ParseMode.HTML,
+                    "Invalid option",
+                    parse_mode=ParseMode.HTML,
                 )
         else:
             update.effective_message.reply_text(
@@ -951,11 +966,13 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
         curr = sql.clean_service(chat.id)
         if curr:
             update.effective_message.reply_text(
-                "Welcome clean service is : <code>on</code>", parse_mode=ParseMode.HTML,
+                "Welcome clean service is : <code>on</code>",
+                parse_mode=ParseMode.HTML,
             )
         else:
             update.effective_message.reply_text(
-                "Welcome clean service is : <code>off</code>", parse_mode=ParseMode.HTML,
+                "Welcome clean service is : <code>off</code>",
+                parse_mode=ParseMode.HTML,
             )
 
 
@@ -1070,7 +1087,8 @@ def welcome_help(update: Update, context: CallbackContext):
 @user_admin
 def welcome_mute_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
-        WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN,
+        WELC_MUTE_HELP_TXT,
+        parse_mode=ParseMode.MARKDOWN,
     )
 
 
@@ -1129,7 +1147,9 @@ RESET_WELCOME = CommandHandler("resetwelcome", reset_welcome, filters=Filters.gr
 RESET_GOODBYE = CommandHandler("resetgoodbye", reset_goodbye, filters=Filters.group)
 WELCOMEMUTE_HANDLER = CommandHandler("welcomemute", welcomemute, filters=Filters.group)
 CLEAN_SERVICE_HANDLER = CommandHandler(
-    "cleanservice", cleanservice, filters=Filters.group,
+    "cleanservice",
+    cleanservice,
+    filters=Filters.group,
 )
 CLEAN_WELCOME = CommandHandler("cleanwelcome", clean_welcome, filters=Filters.group)
 WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)

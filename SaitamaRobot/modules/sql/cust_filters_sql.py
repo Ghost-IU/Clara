@@ -69,9 +69,7 @@ class CustomFilters(BASE):
         return bool(
             isinstance(other, CustomFilters)
             and self.chat_id == other.chat_id
-
             and self.keyword == other.keyword,
-
         )
 
 
@@ -97,9 +95,7 @@ class NewCustomFilters(BASE):
         return bool(
             isinstance(other, CustomFilters)
             and self.chat_id == other.chat_id
-
             and self.keyword == other.keyword,
-
         )
 
 
@@ -364,13 +360,19 @@ def __migrate_filters():
             print(str(x.chat_id), x.keyword, x.reply, file_type.value)
             if file_type == Types.TEXT:
                 filt = CustomFilters(
-
-                    str(x.chat_id), x.keyword, x.reply, file_type.value, None,
+                    str(x.chat_id),
+                    x.keyword,
+                    x.reply,
+                    file_type.value,
+                    None,
                 )
             else:
                 filt = CustomFilters(
-                    str(x.chat_id), x.keyword, None, file_type.value, x.reply,
-
+                    str(x.chat_id),
+                    x.keyword,
+                    None,
+                    file_type.value,
+                    x.reply,
                 )
 
             SESSION.add(filt)

@@ -211,7 +211,8 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         if excp.message == "Reply message not found":
             # Do not reply
             message.reply_text(
-                f"Banned! User will be banned for {time_val}.", quote=False,
+                f"Banned! User will be banned for {time_val}.",
+                quote=False,
             )
             return log
         else:

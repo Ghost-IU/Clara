@@ -21,9 +21,10 @@ class Warns(BASE):
 
     def __repr__(self):
         return "<{} warns for {} in {} for reasons {}>".format(
-
-            self.num_warns, self.user_id, self.chat_id, self.reasons,
-
+            self.num_warns,
+            self.user_id,
+            self.chat_id,
+            self.reasons,
         )
 
 
@@ -45,9 +46,7 @@ class WarnFilters(BASE):
         return bool(
             isinstance(other, WarnFilters)
             and self.chat_id == other.chat_id
-
             and self.keyword == other.keyword,
-
         )
 
 

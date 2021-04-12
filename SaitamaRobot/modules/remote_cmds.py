@@ -397,7 +397,9 @@ def rmute(update: Update, context: CallbackContext):
 
     try:
         bot.restrict_chat_member(
-            chat.id, user_id, permissions=ChatPermissions(can_send_messages=False),
+            chat.id,
+            user_id,
+            permissions=ChatPermissions(can_send_messages=False),
         )
         message.reply_text("Muted from the chat!")
     except BadRequest as excp:

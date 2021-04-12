@@ -20,7 +20,8 @@ def speedtestxyz(update: Update, context: CallbackContext):
         ],
     ]
     update.effective_message.reply_text(
-        "Select SpeedTest Mode", reply_markup=InlineKeyboardMarkup(buttons),
+        "Select SpeedTest Mode",
+        reply_markup=InlineKeyboardMarkup(buttons),
     )
 
 
@@ -39,7 +40,8 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
         if query.data == "speedtest_image":
             speedtest_image = speed.results.share()
             update.effective_message.reply_photo(
-                photo=speedtest_image, caption=replymsg,
+                photo=speedtest_image,
+                caption=replymsg,
             )
             msg.delete()
 
@@ -53,7 +55,8 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
 
 SPEED_TEST_HANDLER = DisableAbleCommandHandler("speedtest", speedtestxyz)
 SPEED_TEST_CALLBACKHANDLER = CallbackQueryHandler(
-    speedtestxyz_callback, pattern="speedtest_.*",
+    speedtestxyz_callback,
+    pattern="speedtest_.*",
 )
 
 dispatcher.add_handler(SPEED_TEST_HANDLER)

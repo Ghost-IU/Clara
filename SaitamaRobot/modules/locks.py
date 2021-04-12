@@ -95,7 +95,13 @@ REST_GROUP = 2
 
 # NOT ASYNC
 def restr_members(
-    bot, chat_id, members, messages=False, media=False, other=False, previews=False,
+    bot,
+    chat_id,
+    members,
+    messages=False,
+    media=False,
+    other=False,
+    previews=False,
 ):
     for mem in members:
         if mem.user in DRAGONS:
@@ -115,7 +121,13 @@ def restr_members(
 
 # NOT ASYNC
 def unrestr_members(
-    bot, chat_id, members, messages=True, media=True, other=True, previews=True,
+    bot,
+    chat_id,
+    members,
+    messages=True,
+    media=True,
+    other=True,
+    previews=True,
 ):
     for mem in members:
         try:
@@ -197,7 +209,8 @@ def lock(update, context) -> str:
                     chat_id = conn
                     chat_name = chat.title
                     text = "Locked {} for all non-admins in {}!".format(
-                        ltype, chat_name,
+                        ltype,
+                        chat_name,
                     )
                 else:
                     if update.effective_message.chat.type == "private":
@@ -590,7 +603,9 @@ __mod_name__ = "Locks"
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler("lock", lock, pass_args=True)  # , filters=Filters.group)
 UNLOCK_HANDLER = CommandHandler(
-    "unlock", unlock, pass_args=True,
+    "unlock",
+    unlock,
+    pass_args=True,
 )  # , filters=Filters.group)
 LOCKED_HANDLER = CommandHandler("locks", list_locks)  # , filters=Filters.group)
 
@@ -600,5 +615,6 @@ dispatcher.add_handler(LOCKTYPES_HANDLER)
 dispatcher.add_handler(LOCKED_HANDLER)
 
 dispatcher.add_handler(
-    MessageHandler(Filters.all & Filters.group, del_lockables), PERM_GROUP,
+    MessageHandler(Filters.all & Filters.group, del_lockables),
+    PERM_GROUP,
 )

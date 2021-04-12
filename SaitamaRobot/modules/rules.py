@@ -46,7 +46,10 @@ def send_rules(update, chat_id, from_pm=False):
 
     if from_pm and rules:
         bot.send_message(
-            user.id, text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True,
+            user.id,
+            text,
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
         )
     elif from_pm:
         bot.send_message(
@@ -61,7 +64,8 @@ def send_rules(update, chat_id, from_pm=False):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Rules", url=f"t.me/{bot.username}?start={chat_id}",
+                            text="Rules",
+                            url=f"t.me/{bot.username}?start={chat_id}",
                         ),
                     ],
                 ],
@@ -74,7 +78,8 @@ def send_rules(update, chat_id, from_pm=False):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Rules", url=f"t.me/{bot.username}?start={chat_id}",
+                            text="Rules",
+                            url=f"t.me/{bot.username}?start={chat_id}",
                         ),
                     ],
                 ],
@@ -98,7 +103,9 @@ def set_rules(update: Update, context: CallbackContext):
         txt = args[1]
         offset = len(txt) - len(raw_text)  # set correct offset relative to command
         markdown_rules = markdown_parser(
-            txt, entities=msg.parse_entities(), offset=offset,
+            txt,
+            entities=msg.parse_entities(),
+            offset=offset,
         )
 
         sql.set_rules(chat_id, markdown_rules)
