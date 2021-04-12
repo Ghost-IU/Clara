@@ -462,7 +462,8 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 def whitelistlist(update: Update, context: CallbackContext):
     reply = "<b>Known Wolf Disasters 🐺:</b>\n"
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML,
+        "<code>Gathering intel..</code>",
+        parse_mode=ParseMode.HTML,
     )
     bot = context.bot
     for each_user in WOLVES:
@@ -481,7 +482,8 @@ def whitelistlist(update: Update, context: CallbackContext):
 def tigerlist(update: Update, context: CallbackContext):
     reply = "<b>Known Tiger Disasters 🐯:</b>\n"
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML,
+        "<code>Gathering intel..</code>",
+        parse_mode=ParseMode.HTML,
     )
     bot = context.bot
     for each_user in TIGERS:
@@ -499,7 +501,8 @@ def tigerlist(update: Update, context: CallbackContext):
 def supportlist(update: Update, context: CallbackContext):
     bot = context.bot
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML,
+        "<code>Gathering intel..</code>",
+        parse_mode=ParseMode.HTML,
     )
     reply = "<b>Known Demon Disasters 👹:</b>\n"
     for each_user in DEMONS:
@@ -517,7 +520,8 @@ def supportlist(update: Update, context: CallbackContext):
 def sudolist(update: Update, context: CallbackContext):
     bot = context.bot
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML,
+        "<code>Gathering intel..</code>",
+        parse_mode=ParseMode.HTML,
     )
     true_sudo = list(set(DRAGONS) - set(DEV_USERS))
     reply = "<b>Known Dragon Disasters 🐉:</b>\n"
@@ -536,7 +540,8 @@ def sudolist(update: Update, context: CallbackContext):
 def devlist(update: Update, context: CallbackContext):
     bot = context.bot
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML,
+        "<code>Gathering intel..</code>",
+        parse_mode=ParseMode.HTML,
     )
     true_dev = list(set(DEV_USERS) - {OWNER_ID})
     reply = "<b>Hero Association Members ⚡️:</b>\n"

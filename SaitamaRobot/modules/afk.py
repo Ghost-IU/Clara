@@ -107,7 +107,7 @@ def reply_afk(update: Update, context: CallbackContext):
                 return
 
             user_id = get_user_id(
-                message.text[ent.offset: ent.offset + ent.length],
+                message.text[ent.offset : ent.offset + ent.length],
             )
             if not user_id:
                 # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
@@ -132,7 +132,9 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-def check_afk(update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int):
+def check_afk(
+    update: Update, context: CallbackContext, user_id: int, fst_name: str, userc_id: int
+):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
 
@@ -164,7 +166,9 @@ When marked as AFK, any mentions will be replied to with a message to say you're
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk",
+    Filters.regex(r"^(?i)brb(.*)$"),
+    afk,
+    friendly="afk",
 )
 NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
 AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk)

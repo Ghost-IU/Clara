@@ -145,7 +145,9 @@ CHATBOT_HANDLER = MessageHandler(
     chatbot,
 )
 LIST_CB_CHATS_HANDLER = CommandHandler(
-    "listaichats", list_chatbot_chats, filters=CustomFilters.dev_filter,
+    "listaichats",
+    list_chatbot_chats,
+    filters=CustomFilters.dev_filter,
 )
 # Filters for ignoring #note messages, !commands and sed.
 

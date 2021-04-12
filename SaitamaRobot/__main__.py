@@ -19,7 +19,8 @@ from SaitamaRobot import (
     dispatcher,
     StartTime,
     telethn,
-    updater)
+    updater,
+)
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
@@ -185,7 +186,13 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="Back", callback_data="help_back")]],
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="Back", callback_data="help_back"
+                                )
+                            ]
+                        ],
                     ),
                 )
             elif args[0].lower() == "markdownhelp":
@@ -209,7 +216,8 @@ def start(update: Update, context: CallbackContext):
             update.effective_message.reply_photo(
                 SAITAMA_IMG,
                 PM_START_TEXT.format(
-                    escape_markdown(first_name), escape_markdown(context.bot.first_name),
+                    escape_markdown(first_name),
+                    escape_markdown(context.bot.first_name),
                 ),
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
@@ -363,7 +371,8 @@ def get_help(update: Update, context: CallbackContext):
                             InlineKeyboardButton(
                                 text="Help",
                                 url="t.me/{}?start=ghelp_{}".format(
-                                    context.bot.username, module,
+                                    context.bot.username,
+                                    module,
                                 ),
                             ),
                         ],
@@ -461,9 +470,13 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(
-                escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__,
-            ) + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
+            text = (
+                "*{}* has the following settings for the *{}* module:\n\n".format(
+                    escape_markdown(chat.title),
+                    CHAT_SETTINGS[module].__mod_name__,
+                )
+                + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
+            )
             query.message.reply_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
@@ -488,7 +501,10 @@ def settings_button(update: Update, context: CallbackContext):
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
-                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id,
+                        curr_page - 1,
+                        CHAT_SETTINGS,
+                        "stngs",
+                        chat=chat_id,
                     ),
                 ),
             )
@@ -502,7 +518,10 @@ def settings_button(update: Update, context: CallbackContext):
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
-                        next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id,
+                        next_page + 1,
+                        CHAT_SETTINGS,
+                        "stngs",
+                        chat=chat_id,
                     ),
                 ),
             )
@@ -549,7 +568,8 @@ def get_settings(update: Update, context: CallbackContext):
                             InlineKeyboardButton(
                                 text="Settings",
                                 url="t.me/{}?start=stngs_{}".format(
-                                    context.bot.username, chat.id,
+                                    context.bot.username,
+                                    chat.id,
                                 ),
                             ),
                         ],
@@ -570,7 +590,9 @@ def donate(update: Update, context: CallbackContext):
     bot = context.bot
     if chat.type == "private":
         update.effective_message.reply_text(
-            DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True,
+            DONATE_STRING,
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
         )
 
         if OWNER_ID != 254318997 and DONATION_LINK:

@@ -209,7 +209,10 @@ def temp_mute(update: Update, context: CallbackContext) -> str:
         if member.can_send_messages is None or member.can_send_messages:
             chat_permissions = ChatPermissions(can_send_messages=False)
             bot.restrict_chat_member(
-                chat.id, user_id, chat_permissions, until_date=mutetime,
+                chat.id,
+                user_id,
+                chat_permissions,
+                until_date=mutetime,
             )
             bot.sendMessage(
                 chat.id,
