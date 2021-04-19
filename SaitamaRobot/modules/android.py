@@ -25,9 +25,9 @@ def magisk(update, context):
     url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     releases = ""
     for type, branch in {
-        "Stable": ["master/stable", "master"],
-        "Beta": ["master/beta", "master"],
-        "Canary": ["canary/canary", "canary"],
+            "Stable": ["master/stable", "master"],
+            "Beta": ["master/beta", "master"],
+            "Canary": ["canary/canary", "canary"],
     }.items():
         data = get(url + branch[0] + ".json").json()
         if type != "Canary":
@@ -68,8 +68,7 @@ def device(update, context):
             update.effective_message.delete()
         except BadRequest as err:
             if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
+                    err.message == "Message can't be deleted"):
                 return
     device = " ".join(args)
     db = get(DEVICES_DATA).json()
@@ -80,11 +79,9 @@ def device(update, context):
         name = db[newdevice][0]["name"]
         model = db[newdevice][0]["model"]
         codename = newdevice
-        reply += (
-            f"<b>{brand} {name}</b>\n"
-            f"Model: <code>{model}</code>\n"
-            f"Codename: <code>{codename}</code>\n\n"
-        )
+        reply += (f"<b>{brand} {name}</b>\n"
+                  f"Model: <code>{model}</code>\n"
+                  f"Codename: <code>{codename}</code>\n\n")
     except KeyError:
         reply = f"Couldn't find info about {device}!\n"
         del_msg = update.effective_message.reply_text(
@@ -98,12 +95,11 @@ def device(update, context):
             update.effective_message.delete()
         except BadRequest as err:
             if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
+                    err.message == "Message can't be deleted"):
                 return
-    update.message.reply_text(
-        "{}".format(reply), parse_mode=ParseMode.HTML, disable_web_page_preview=True
-    )
+    update.message.reply_text("{}".format(reply),
+                              parse_mode=ParseMode.HTML,
+                              disable_web_page_preview=True)
 
 
 @typing_action
@@ -121,8 +117,7 @@ def twrp(update, context):
             update.effective_message.delete()
         except BadRequest as err:
             if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
+                    err.message == "Message can't be deleted"):
                 return
 
     _device = " ".join(args)
@@ -140,13 +135,13 @@ def twrp(update, context):
             update.effective_message.delete()
         except BadRequest as err:
             if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
+                    err.message == "Message can't be deleted"):
                 return
     else:
         reply = f"*Latest Official TWRP for {_device}*\n"
         db = get(DEVICES_DATA).json()
-        newdevice = _device.strip("lte") if _device.startswith("beyond") else _device
+        newdevice = _device.strip("lte") if _device.startswith(
+            "beyond") else _device
         try:
             brand = db[newdevice][0]["brand"]
             name = db[newdevice][0]["name"]
@@ -176,7 +171,7 @@ def twrp(update, context):
 def orangefox(update, context):
     message = update.effective_message
     chat = update.effective_chat
-    device = message.text[len("/orangefox ") :]
+    device = message.text[len("/orangefox "):]
     btn = ""
 
     if device:
@@ -197,7 +192,9 @@ def orangefox(update, context):
             model = page["model_name"]
             full_name = page["full_name"]
             maintainer = page["maintainer"]["username"]
-            link = get(f"https://api.orangefox.download/v3/releases/get?_id={file_id}")
+            link = get(
+                f"https://api.orangefox.download/v3/releases/get?_id={file_id}"
+            )
             page = loads(link.content)
             dl_file = page["filename"]
             build_type = page["type"]
@@ -245,7 +242,9 @@ __mod_name__ = "Android"
 MAGISK_HANDLER = DisableAbleCommandHandler("magisk", magisk)
 TWRP_HANDLER = DisableAbleCommandHandler("twrp", twrp, pass_args=True)
 DEVICE_HANDLER = DisableAbleCommandHandler("device", device, pass_args=True)
-ORANGEFOX_HANDLER = DisableAbleCommandHandler("orangefox", orangefox, pass_args=True)
+ORANGEFOX_HANDLER = DisableAbleCommandHandler("orangefox",
+                                              orangefox,
+                                              pass_args=True)
 
 dispatcher.add_handler(MAGISK_HANDLER)
 dispatcher.add_handler(TWRP_HANDLER)
