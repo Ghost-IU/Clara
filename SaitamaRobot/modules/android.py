@@ -3,8 +3,11 @@ from datetime import datetime
 
 from bs4 import BeautifulSoup
 from requests import get
-from telegram import (Bot, InlineKeyboardButton, InlineKeyboardMarkup,
-                      ParseMode, Update)
+from telegram import Bot
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import ParseMode
+from telegram import Update
 from telegram.error import BadRequest
 from telegram.ext import run_async
 from ujson import loads
