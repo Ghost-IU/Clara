@@ -1,12 +1,13 @@
 import time
+from datetime import datetime
+
 from bs4 import BeautifulSoup
 from requests import get
-from telegram import ParseMode
+from telegram import (Bot, InlineKeyboardButton, InlineKeyboardMarkup,
+                      ParseMode, Update)
 from telegram.error import BadRequest
 from telegram.ext import run_async
-from telegram import Bot, Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from ujson import loads
-from datetime import datetime
 
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
