@@ -139,7 +139,8 @@ def twrp(update, context):
     else:
         reply = f"*Latest Official TWRP for {_device}*\n"
         db = get(DEVICES_DATA).json()
-        newdevice = _device.strip("lte") if _device.startswith("beyond") else _device
+        newdevice = _device.strip(
+            "lte") if _device.startswith("beyond") else _device
         try:
             brand = db[newdevice][0]["brand"]
             name = db[newdevice][0]["name"]
@@ -169,7 +170,7 @@ def twrp(update, context):
 def orangefox(update, context):
     message = update.effective_message
     chat = update.effective_chat
-    device = message.text[len("/orangefox ") :]
+    device = message.text[len("/orangefox "):]
     btn = ""
 
     if device:
@@ -190,7 +191,8 @@ def orangefox(update, context):
             model = page["model_name"]
             full_name = page["full_name"]
             maintainer = page["maintainer"]["username"]
-            link = get(f"https://api.orangefox.download/v3/releases/get?_id={file_id}")
+            link = get(
+                f"https://api.orangefox.download/v3/releases/get?_id={file_id}")
             page = loads(link.content)
             dl_file = page["filename"]
             build_type = page["type"]
