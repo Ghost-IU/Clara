@@ -167,6 +167,7 @@ def twrp(update, context):
             disable_web_page_preview=True,
         )
 
+
 @typing_action
 def orangefox(update, context):
     message = update.effective_message
@@ -175,14 +176,18 @@ def orangefox(update, context):
     btn = ""
 
     if device:
-        link = get(f"https://api.orangefox.download/v3/releases/?codename={device}&sort=date_desc&limit=1")
+        link = get(
+            f"https://api.orangefox.download/v3/releases/?codename={device}&sort=date_desc&limit=1"
+        )
 
         if link.status_code == 404:
             msg = f"OrangeFox recovery is not avaliable for {device}"
         else:
             page = loads(link.content)
             file_id = page["data"][0]["_id"]
-            link = get(f"https://api.orangefox.download/v3/devices/get?codename={device}")
+            link = get(
+                f"https://api.orangefox.download/v3/devices/get?codename={device}"
+            )
             page = loads(link.content)
             oem = page["oem_name"]
             model = page["model_name"]
@@ -210,16 +215,16 @@ def orangefox(update, context):
             msg += f"• Date: `{date}`\n"
             msg += f"• File: `{dl_file}`\n"
             msg += f"• MD5: `{md5}`\n"
-            btn = [[InlineKeyboardButton(text=f"Download", url = dl_link)]]
+            btn = [[InlineKeyboardButton(text=f"Download", url=dl_link)]]
     else:
-        msg = 'Enter the device codename to fetch, like:\n`/orangefox mido`'
+        msg = "Enter the device codename to fetch, like:\n`/orangefox mido`"
 
     update.message.reply_text(
-        text = msg,
-        reply_markup = InlineKeyboardMarkup(btn),
-        parse_mode = ParseMode.MARKDOWN,
-        disable_web_page_preview = True,
-   )
+        text=msg,
+        reply_markup=InlineKeyboardMarkup(btn),
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True,
+    )
 
 
 __help__ = """
