@@ -2,19 +2,34 @@ import html
 import re
 from datetime import datetime
 from html import escape
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
 from requests import get
-from telegram import (Chat, ChatAction, InlineKeyboardButton,
-                      InlineKeyboardMarkup, Message, MessageEntity, ParseMode,
-                      TelegramError)
+from telegram import Chat
+from telegram import ChatAction
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import CallbackQueryHandler, CommandHandler, Filters
-from telegram.utils.helpers import (escape_markdown, mention_html,
-                                    mention_markdown)
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.utils.helpers import escape_markdown
+from telegram.utils.helpers import mention_html
+from telegram.utils.helpers import mention_markdown
 
-from SaitamaRobot import (DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, TOKEN,
-                          WOLVES, dispatcher)
+from SaitamaRobot import DEMONS
+from SaitamaRobot import DEV_USERS
+from SaitamaRobot import dispatcher
+from SaitamaRobot import DRAGONS
+from SaitamaRobot import OWNER_ID
+from SaitamaRobot import TIGERS
+from SaitamaRobot import TOKEN
+from SaitamaRobot import WOLVES
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from SaitamaRobot.modules.helper_funcs.alternate import typing_action
 
