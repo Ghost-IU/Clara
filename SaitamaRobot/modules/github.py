@@ -47,7 +47,8 @@ def repo(update, context):
         )
     elif len(args) == 1:
         user = args[0]
-        usr_data = get(f"https://api.github.com/users/{user}/repos?per_page=40").json()
+        usr_data = get(
+            f"https://api.github.com/users/{user}/repos?per_page=40").json()
 
         if len(usr_data) != 0:
             reply_text = f"*{user}*" + f"'s" + "* Repos:*\n"
@@ -66,7 +67,8 @@ def repo(update, context):
     else:
         user, repo = args
         rep_data = get(f"https://api.github.com/repos/{user}/{repo}").json()
-        brc_data = get(f"https://api.github.com/repos/{user}/{repo}/branches").json()
+        brc_data = get(
+            f"https://api.github.com/repos/{user}/{repo}/branches").json()
         try:
             text = f"*Repo name:* {rep_data['full_name']}"
             text += f"\n*Language*: {rep_data['language']}"
