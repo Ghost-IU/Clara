@@ -47,7 +47,8 @@ def repo(update, context):
         )
     elif len(args) == 1:
         user = args[0]
-        usr_data = get(f"https://api.github.com/users/{user}/repos?per_page=40").json()
+        usr_data = get(
+            f"https://api.github.com/users/{user}/repos?per_page=40").json()
 
         if len(usr_data) != 0:
             reply_text = f"*{user}*" + f"'s" + "* Repos:*\n"
@@ -66,7 +67,8 @@ def repo(update, context):
     else:
         user, repo = args
         rep_data = get(f"https://api.github.com/repos/{user}/{repo}").json()
-        brc_data = get(f"https://api.github.com/repos/{user}/{repo}/branches").json()
+        brc_data = get(
+            f"https://api.github.com/repos/{user}/{repo}/branches").json()
         try:
             text = f"*Repo name:* {rep_data['full_name']}"
             text += f"\n*Language*: {rep_data['language']}"
@@ -110,9 +112,9 @@ def repo(update, context):
                         if x == "Homepage":
                             y = f"[Here!]({y})"
                         elif x in [
-                            "Created date",
-                            "Last updated",
-                            "Description",
+                                "Created date",
+                                "Last updated",
+                                "Description",
                         ]:
                             text += f"\n*{x}:* \n`{y}`"
                         else:
@@ -130,29 +132,27 @@ def repo(update, context):
                 f"{rep_data['html_url']}",
                 caption=text,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup(
+                reply_markup=InlineKeyboardMarkup([
                     [
-                        [
-                            InlineKeyboardButton(
-                                text="Repo link", url=f"{rep_data['html_url']}"
-                            ),
-                            InlineKeyboardButton(
-                                text="Issues",
-                                url=f"https://github.com/{user}/{repo}/issues",
-                            ),
-                        ],
-                        [
-                            InlineKeyboardButton(
-                                text="Pull Requests",
-                                url=f"https://github.com/{user}/{repo}/pulls",
-                            ),
-                            InlineKeyboardButton(
-                                text="Commits",
-                                url=f"https://github.com/{user}/{repo}/commits/{rep_data['default_branch']}",
-                            ),
-                        ],
-                    ]
-                ),
+                        InlineKeyboardButton(text="Repo link",
+                                             url=f"{rep_data['html_url']}"),
+                        InlineKeyboardButton(
+                            text="Issues",
+                            url=f"https://github.com/{user}/{repo}/issues",
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Pull Requests",
+                            url=f"https://github.com/{user}/{repo}/pulls",
+                        ),
+                        InlineKeyboardButton(
+                            text="Commits",
+                            url=
+                            f"https://github.com/{user}/{repo}/commits/{rep_data['default_branch']}",
+                        ),
+                    ],
+                ]),
             )
         except KeyError:
             return message.reply_text(
