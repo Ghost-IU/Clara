@@ -1,16 +1,15 @@
-import random
 import html
+import random
 
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import (
-    DisableAbleCommandHandler,
-    DisableAbleMessageHandler,
-)
-from SaitamaRobot.modules.sql import afk_sql as sql
-from SaitamaRobot.modules.users import get_user_id
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
+
+from SaitamaRobot import dispatcher
+from SaitamaRobot.modules.disable import (DisableAbleCommandHandler,
+                                          DisableAbleMessageHandler)
+from SaitamaRobot.modules.sql import afk_sql as sql
+from SaitamaRobot.modules.users import get_user_id
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
