@@ -23,7 +23,7 @@ RUN_STRINGS = (
     "Act like a horse. Be dumb. Just run.",
     "Life is short. Running makes it seem longer.",
     "That awkward moment when you’re wearing Nike and you just can’t do it…",
-    "A long time ago, in a galaxy far far away... Someone would've cared about that. Not anymore though."
+    "A long time ago, in a galaxy far far away... Someone would've cared about that. Not anymore though.",
 )
 
 GIFS = [
@@ -156,10 +156,10 @@ HUG_TEMPLATES = (
     "{user1} {hug} {user2} warmly.",
     "{user1} {hug} {user2} with a love. 💘",
     "{user1} {hug} {user2} with kindness.",
-    "{user1} gave {user2} a {hug} and took her hand."
+    "{user1} gave {user2} a {hug} and took her hand.",
 )
 
-HUG = ("hugs", "hugged", "kissed", "pinches","adore")
+HUG = ("hugs", "hugged", "kissed", "pinches", "adore")
 
 PAT_GIFS = (
     "CgACAgQAAxkBAALRX19Xs7tBdOH1gQwS_rglVRkTbgVYAAKEAgACmQn9UWlyGa_xy9_aGwQ",
