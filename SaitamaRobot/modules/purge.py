@@ -1,11 +1,13 @@
-from SaitamaRobot import telethn, DRAGONS, OWNER_ID, DEV_USERS, WOLVES, TIGERS, DEMONS
-
 import asyncio
+
 from telethon import events
-from telethon.tl.types import ChannelParticipantsAdmins
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
-from SaitamaRobot.modules.helper_funcs.telethn.chatstatus import can_delete_messages
-from SaitamaRobot.modules.helper_funcs.telethn.chatstatus import user_is_admin
+from telethon.tl.types import ChannelParticipantsAdmins
+
+from SaitamaRobot import (DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES,
+                          telethn)
+from SaitamaRobot.modules.helper_funcs.telethn.chatstatus import (
+    can_delete_messages, user_is_admin)
 
 # Check if user has admin rights
 
