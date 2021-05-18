@@ -37,16 +37,10 @@ def runs(update: Update, context: CallbackContext):
 @typing_action
 def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
-    name = (
-        message.reply_to_message.from_user.first_name
-        if message.reply_to_message
-        else message.from_user.first_name
-    )
-    reply_animation = (
-        message.reply_to_message.reply_animation
-        if message.reply_to_message
-        else message.reply_animation
-    )
+    name = (message.reply_to_message.from_user.first_name
+            if message.reply_to_message else message.from_user.first_name)
+    reply_animation = (message.reply_to_message.reply_animation if
+                       message.reply_to_message else message.reply_animation)
     reply_animation(random.choice(GIFS), caption=f"*Sanitizes {name}*")
 
 
@@ -57,11 +51,8 @@ def slap(update: Update, context: CallbackContext):
     message = update.effective_message
     chat = update.effective_chat
 
-    reply_text = (
-        message.reply_to_message.reply_text
-        if message.reply_to_message
-        else message.reply_text
-    )
+    reply_text = (message.reply_to_message.reply_text
+                  if message.reply_to_message else message.reply_text)
 
     curr_user = html.escape(message.from_user.first_name)
     user_id = extract_user(message, args)
@@ -105,7 +96,11 @@ def slap(update: Update, context: CallbackContext):
     if update.effective_user.id == 1096215023:
         temp = "@NeoTheKitty scratches {user2}"
 
-    reply = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
+    reply = temp.format(user1=user1,
+                        user2=user2,
+                        item=item,
+                        hits=hit,
+                        throws=throw)
 
     reply_text(reply, parse_mode=ParseMode.HTML)
 
@@ -117,17 +112,15 @@ def hug(update: Update, context: CallbackContext):
     msg = update.effective_message  # type: Optional[Message]
 
     # reply to correct message
-    reply_text = (
-        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
-    )
+    reply_text = (msg.reply_to_message.reply_text
+                  if msg.reply_to_message else msg.reply_text)
 
     # get user who sent message
     if msg.from_user.username:
         curr_user = "@" + escape_markdown(msg.from_user.username)
     else:
-        curr_user = "[{}](tg://user?id={})".format(
-            msg.from_user.first_name, msg.from_user.id
-        )
+        curr_user = "[{}](tg://user?id={})".format(msg.from_user.first_name,
+                                                   msg.from_user.id)
 
     user_id = extract_user(update.effective_message, args)
     if user_id:
@@ -136,15 +129,13 @@ def hug(update: Update, context: CallbackContext):
         if hugged_user.username:
             user2 = "@" + escape_markdown(hugged_user.username)
         else:
-            user2 = "[{}](tg://user?id={})".format(
-                hugged_user.first_name, hugged_user.id
-            )
+            user2 = "[{}](tg://user?id={})".format(hugged_user.first_name,
+                                                   hugged_user.id)
 
     # if no target found, bot targets the sender
     else:
-        user1 = "Awwh! [{}](tg://user?id={})".format(
-            context.bot.first_name, context.bot.id
-        )
+        user1 = "Awwh! [{}](tg://user?id={})".format(context.bot.first_name,
+                                                     context.bot.id)
         user2 = curr_user
 
     temp = random.choice(fun_strings.HUG_TEMPLATES)
@@ -184,9 +175,8 @@ def toss(update: Update, context: CallbackContext):
 @typing_action
 def shrug(update: Update, context: CallbackContext):
     msg = update.effective_message
-    reply_text = (
-        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
-    )
+    reply_text = (msg.reply_to_message.reply_text
+                  if msg.reply_to_message else msg.reply_text)
     reply_text(r"¯\_(ツ)_/¯")
 
 
@@ -194,9 +184,8 @@ def shrug(update: Update, context: CallbackContext):
 @typing_action
 def bluetext(update: Update, context: CallbackContext):
     msg = update.effective_message
-    reply_text = (
-        msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
-    )
+    reply_text = (msg.reply_to_message.reply_text
+                  if msg.reply_to_message else msg.reply_text)
     reply_text(
         "/BLUE /TEXT\n/MUST /CLICK\n/I /AM /A /STUPID /ANIMAL /THAT /IS /ATTRACTED /TO /COLORS",
     )
@@ -217,32 +206,26 @@ def rlg(update: Update, context: CallbackContext):
 
 @run_async
 def decide(update: Update, context: CallbackContext):
-    reply_text = (
-        update.effective_message.reply_to_message.reply_text
-        if update.effective_message.reply_to_message
-        else update.effective_message.reply_text
-    )
+    reply_text = (update.effective_message.reply_to_message.reply_text
+                  if update.effective_message.reply_to_message else
+                  update.effective_message.reply_text)
     reply_text(random.choice(fun_strings.DECIDE))
 
 
 @run_async
 @typing_action
 def eightball(update: Update, context: CallbackContext):
-    reply_text = (
-        update.effective_message.reply_to_message.reply_text
-        if update.effective_message.reply_to_message
-        else update.effective_message.reply_text
-    )
+    reply_text = (update.effective_message.reply_to_message.reply_text
+                  if update.effective_message.reply_to_message else
+                  update.effective_message.reply_text)
     reply_text(random.choice(fun_strings.EIGHTBALL))
 
 
 @run_async
 def table(update: Update, context: CallbackContext):
-    reply_text = (
-        update.effective_message.reply_to_message.reply_text
-        if update.effective_message.reply_to_message
-        else update.effective_message.reply_text
-    )
+    reply_text = (update.effective_message.reply_to_message.reply_text
+                  if update.effective_message.reply_to_message else
+                  update.effective_message.reply_text)
     reply_text(random.choice(fun_strings.TABLE))
 
 
@@ -318,7 +301,8 @@ def weebify(update: Update, context: CallbackContext):
         string = "  ".join(args).lower()
 
     if not string:
-        message.reply_text("Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN)
+        message.reply_text("Usage is `/weebify <text>`",
+                           parse_mode=ParseMode.MARKDOWN)
         return
 
     for normiecharacter in string:
