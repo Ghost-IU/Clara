@@ -124,8 +124,7 @@ def gifid(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
     else:
-        update.effective_message.reply_text(
-            "Please reply to a gif to get its ID.")
+        update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 
 @run_async
@@ -156,8 +155,7 @@ def info(update: Update, context: CallbackContext):
     else:
         return
 
-    rep = message.reply_text(
-        "<code>Appraising...</code>", parse_mode=ParseMode.HTML)
+    rep = message.reply_text("<code>Appraising...</code>", parse_mode=ParseMode.HTML)
 
     text = (
         f"╒═══「<b> Appraisal results:</b> 」\n"
@@ -238,8 +236,7 @@ def info(update: Update, context: CallbackContext):
 
     if INFOPIC:
         try:
-            profile = context.bot.get_user_profile_photos(
-                user.id).photos[0][-1]
+            profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
             _file = bot.get_file(profile["file_id"])
             _file.download(f"{user.id}.png")
 
@@ -290,8 +287,7 @@ def about_me(update: Update, context: CallbackContext):
             f"{username} hasn't set an info message about themselves yet!"
         )
     else:
-        update.effective_message.reply_text(
-            "There isnt one, use /setme to set one.")
+        update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
 
 @run_async
@@ -315,8 +311,7 @@ def set_about_me(update: Update, context: CallbackContext):
             if user_id in [777000, 1087968824]:
                 message.reply_text("Authorized...Information updated!")
             elif user_id == bot.id:
-                message.reply_text(
-                    "I have updated my info with the one you provided!")
+                message.reply_text("I have updated my info with the one you provided!")
             else:
                 message.reply_text("Information updated!")
         else:
@@ -409,8 +404,7 @@ def set_about_bio(update: Update, context: CallbackContext):
             if len(bio[1]) < MAX_MESSAGE_LENGTH // 4:
                 sql.set_user_bio(user_id, bio[1])
                 message.reply_text(
-                    "Updated {}'s bio!".format(
-                        repl_message.from_user.first_name)
+                    "Updated {}'s bio!".format(repl_message.from_user.first_name)
                 )
             else:
                 message.reply_text(
