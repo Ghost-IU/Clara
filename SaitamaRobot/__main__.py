@@ -4,18 +4,39 @@ import time
 from sys import argv
 from typing import Optional
 
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
-                      Update)
-from telegram.error import (BadRequest, ChatMigrated, NetworkError,
-                            TelegramError, TimedOut, Unauthorized)
-from telegram.ext import (CallbackContext, CallbackQueryHandler,
-                          CommandHandler, Filters, MessageHandler)
-from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import ParseMode
+from telegram import Update
+from telegram.error import BadRequest
+from telegram.error import ChatMigrated
+from telegram.error import NetworkError
+from telegram.error import TelegramError
+from telegram.error import TimedOut
+from telegram.error import Unauthorized
+from telegram.ext import CallbackContext
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext.dispatcher import DispatcherHandlerStop
+from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 
-from SaitamaRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
-                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          StartTime, dispatcher, telethn, updater)
+from SaitamaRobot import ALLOW_EXCL
+from SaitamaRobot import CERT_PATH
+from SaitamaRobot import dispatcher
+from SaitamaRobot import DONATION_LINK
+from SaitamaRobot import LOGGER
+from SaitamaRobot import OWNER_ID
+from SaitamaRobot import PORT
+from SaitamaRobot import StartTime
+from SaitamaRobot import SUPPORT_CHAT
+from SaitamaRobot import telethn
+from SaitamaRobot import TOKEN
+from SaitamaRobot import updater
+from SaitamaRobot import URL
+from SaitamaRobot import WEBHOOK
 from SaitamaRobot.modules import ALL_MODULES
 from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SaitamaRobot.modules.helper_funcs.misc import paginate_modules
