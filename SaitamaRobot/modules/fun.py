@@ -2,12 +2,9 @@ import html
 import random
 import time
 
-from telegram import ChatPermissions
-from telegram import ParseMode
-from telegram import Update
+from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext
-from telegram.ext import run_async
+from telegram.ext import CallbackContext, run_async
 from telegram.utils.helpers import escape_markdown
 
 import SaitamaRobot.modules.fun_strings as fun_strings
