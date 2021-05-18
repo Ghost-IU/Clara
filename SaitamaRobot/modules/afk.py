@@ -1,13 +1,17 @@
 import html
 import random
 
-from telegram import MessageEntity, Update
+from telegram import MessageEntity
+from telegram import Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
+from telegram.ext import CallbackContext
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 
 from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import (DisableAbleCommandHandler,
-                                          DisableAbleMessageHandler)
+from SaitamaRobot.modules.disable import DisableAbleCommandHandler
+from SaitamaRobot.modules.disable import DisableAbleMessageHandler
 from SaitamaRobot.modules.sql import afk_sql as sql
 from SaitamaRobot.modules.users import get_user_id
 
