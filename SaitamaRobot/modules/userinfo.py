@@ -1,37 +1,28 @@
 import html
-import re
 import os
-import requests
+import re
 import subprocess
 
-from telethon.tl.functions.channels import GetFullChannelRequest
-from telethon.tl.types import ChannelParticipantsAdmins
-from telethon import events
-
+import requests
 from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update
+from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.ext.dispatcher import run_async
-from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
+from telethon import events
+from telethon.tl.functions.channels import GetFullChannelRequest
+from telethon.tl.types import ChannelParticipantsAdmins
 
-from SaitamaRobot import (
-    DEV_USERS,
-    OWNER_ID,
-    DRAGONS,
-    DEMONS,
-    TIGERS,
-    WOLVES,
-    INFOPIC,
-    dispatcher,
-)
-from SaitamaRobot.__main__ import STATS, TOKEN, USER_INFO
 import SaitamaRobot.modules.sql.userinfo_sql as sql
+from SaitamaRobot import (DEMONS, DEV_USERS, DRAGONS, INFOPIC, OWNER_ID,
+                          TIGERS, WOLVES, dispatcher)
+from SaitamaRobot import telethn as SaitamaTelethonClient
+from SaitamaRobot.__main__ import STATS, TOKEN, USER_INFO
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.sql.afk_sql import is_afk, check_afk_status
-from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
 from SaitamaRobot.modules.helper_funcs.chat_status import sudo_plus
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
-from SaitamaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
+from SaitamaRobot.modules.sql.afk_sql import check_afk_status, is_afk
+from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
 
 
 @run_async
