@@ -7,18 +7,18 @@ from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
 from SaitamaRobot.modules.helper_funcs.telethn.chatstatus import can_delete_messages
 from SaitamaRobot.modules.helper_funcs.telethn.chatstatus import user_is_admin
 
- #Check if user has admin rights
+# Check if user has admin rights
 
 
-#async def is_administrator(user_id: int, message):
-    #admin = False
-    #async for user in telethn.iter_participants(
-        #message.chat_id, filter=ChannelParticipantsAdmins
-    #):
-        #if user_id == user_is_admin or can_delete_messages:
-            #admin = True
-            #break
-    #return admin
+# async def is_administrator(user_id: int, message):
+# admin = False
+# async for user in telethn.iter_participants(
+# message.chat_id, filter=ChannelParticipantsAdmins
+# ):
+# if user_id == user_is_admin or can_delete_messages:
+# admin = True
+# break
+# return admin
 
 
 async def purge(event):
@@ -37,9 +37,7 @@ async def purge(event):
 
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply(
-            "Reply to a message to select where to start purging from."
-        )
+        await event.reply("Reply to a message to select where to start purging from.")
         return
 
     try:
