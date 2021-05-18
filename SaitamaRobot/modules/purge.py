@@ -30,17 +30,19 @@ async def purge(event):
     chat = event.chat_id
     msgs = []
 
-    if (not await user_is_admin(
+    if (
+        not await user_is_admin(
             user_id=event.sender_id,
             message=event,
-    ) and event.from_id not in [1087968824]):
+        )
+        and event.from_id not in [1087968824]
+    ):
         await event.reply("Only Admins are allowed to use this command")
         return
 
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply(
-            "Reply to a message to select where to start purging from.")
+        await event.reply("Reply to a message to select where to start purging from.")
         return
 
     try:
@@ -57,8 +59,9 @@ async def purge(event):
                 msgs = []
 
         await event.client.delete_messages(chat, msgs)
-        del_res = await event.client.send_message(event.chat_id,
-                                                  f"Purged {count} messages.")
+        del_res = await event.client.send_message(
+            event.chat_id, f"Purged {count} messages."
+        )
 
         await asyncio.sleep(2)
         await del_res.delete()
@@ -75,10 +78,13 @@ async def delete_msg(event):
     if event.from_id is None:
         return
 
-    if (not await user_is_admin(
+    if (
+        not await user_is_admin(
             user_id=event.sender_id,
             message=event,
-    ) and event.from_id not in [1087968824]):
+        )
+        and event.from_id not in [1087968824]
+    ):
         await event.reply("Only Admins are allowed to use this command")
         return
 
