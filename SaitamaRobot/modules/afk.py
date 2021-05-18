@@ -39,8 +39,7 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text(
-            "{} is now away!{}".format(fname, notice))
+        update.effective_message.reply_text("{} is now away!{}".format(fname, notice))
     except BadRequest:
         pass
 
@@ -70,8 +69,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
                 "Where is {}?\nIn the chat!",
             ]
             chosen_option = random.choice(options)
-            update.effective_message.reply_text(
-                chosen_option.format(firstname))
+            update.effective_message.reply_text(chosen_option.format(firstname))
         except:
             return
 
@@ -101,7 +99,7 @@ def reply_afk(update: Update, context: CallbackContext):
 
             if ent.type == MessageEntity.MENTION:
                 user_id = get_user_id(
-                    message.text[ent.offset: ent.offset + ent.length]
+                    message.text[ent.offset : ent.offset + ent.length]
                 )
                 if not user_id:
                     # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
