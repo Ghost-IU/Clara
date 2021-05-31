@@ -129,8 +129,8 @@ def warn(
                 ],
                 [
                     InlineKeyboardButton(
-                        text = "Rules",
-                        url =f"t.me/{dispatcher.bot.username}?start={chat.id}",
+                        text="Rules",
+                        url=f"t.me/{dispatcher.bot.username}?start={chat.id}",
                     ),
                 ],
             ],
