@@ -74,8 +74,7 @@ def list_handlers(update, context):
 
     if not all_handlers:
         send_message(
-            update.effective_message, "No filters saved in {}!".format(
-                chat_name)
+            update.effective_message, "No filters saved in {}!".format(chat_name)
         )
         return
 
@@ -212,8 +211,7 @@ def filters(update, context):
         send_message(update.effective_message, "Invalid filter!")
         return
 
-    add = addnew_filter(update, chat_id, keyword, text,
-                        file_type, file_id, buttons)
+    add = addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons)
     # This is an old method
     # sql.add_filter(chat_id, keyword, content, is_sticker, is_document, is_image, is_audio, is_voice, is_video, buttons)
 
@@ -260,8 +258,7 @@ def stop_filter(update, context):
             sql.remove_filter(chat_id, args[1])
             send_message(
                 update.effective_message,
-                "Okay, I'll stop replying to that filter in *{}*.".format(
-                    chat_name),
+                "Okay, I'll stop replying to that filter in *{}*.".format(chat_name),
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
             raise DispatcherHandlerStop
@@ -333,8 +330,7 @@ def reply_filter(update, context):
                                 )
                                 return
                             else:
-                                LOGGER.exception(
-                                    "Error in filters: " + excp.message)
+                                LOGGER.exception("Error in filters: " + excp.message)
                                 return
                     valid_format = escape_invalid_curly_brackets(
                         text, VALID_WELCOME_FORMATTERS
@@ -394,8 +390,7 @@ def reply_filter(update, context):
                                     reply_markup=keyboard,
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(
-                                    "Error in filters: " + excp.message)
+                                LOGGER.exception("Error in filters: " + excp.message)
                                 send_message(
                                     update.effective_message,
                                     get_exception(excp, filt, chat),
@@ -464,8 +459,7 @@ def reply_filter(update, context):
                                     "again...",
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(
-                                    "Error in filters: " + excp.message)
+                                LOGGER.exception("Error in filters: " + excp.message)
                                 pass
                         elif excp.message == "Reply message not found":
                             try:
@@ -477,8 +471,7 @@ def reply_filter(update, context):
                                     reply_markup=keyboard,
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(
-                                    "Error in filters: " + excp.message)
+                                LOGGER.exception("Error in filters: " + excp.message)
                                 pass
                         else:
                             try:
@@ -487,12 +480,10 @@ def reply_filter(update, context):
                                     "This message couldn't be sent as it's incorrectly formatted.",
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(
-                                    "Error in filters: " + excp.message)
+                                LOGGER.exception("Error in filters: " + excp.message)
                                 pass
                             LOGGER.warning(
-                                "Message %s could not be parsed", str(
-                                    filt.reply)
+                                "Message %s could not be parsed", str(filt.reply)
                             )
                             LOGGER.exception(
                                 "Could not parse filter %s in chat %s",
@@ -527,8 +518,7 @@ def rmall_filters(update, context):
                         text="Stop all filters", callback_data="filters_rmall"
                     )
                 ],
-                [InlineKeyboardButton(
-                    text="Cancel", callback_data="filters_cancel")],
+                [InlineKeyboardButton(text="Cancel", callback_data="filters_cancel")],
             ]
         )
         update.effective_message.reply_text(
@@ -586,8 +576,7 @@ def get_exception(excp, filt, chat):
     else:
         LOGGER.warning("Message %s could not be parsed", str(filt.reply))
         LOGGER.exception(
-            "Could not parse filter %s in chat %s", str(
-                filt.keyword), str(chat.id)
+            "Could not parse filter %s in chat %s", str(filt.keyword), str(chat.id)
         )
         return "This data could not be sent because it is incorrectly formatted."
 
@@ -657,10 +646,8 @@ STOP_HANDLER = CommandHandler("stop", stop_filter)
 RMALLFILTER_HANDLER = CommandHandler(
     "removeallfilters", rmall_filters, filters=Filters.group
 )
-RMALLFILTER_CALLBACK = CallbackQueryHandler(
-    rmall_callback, pattern=r"filters_.*")
-LIST_HANDLER = DisableAbleCommandHandler(
-    "filters", list_handlers, admin_ok=True)
+RMALLFILTER_CALLBACK = CallbackQueryHandler(rmall_callback, pattern=r"filters_.*")
+LIST_HANDLER = DisableAbleCommandHandler("filters", list_handlers, admin_ok=True)
 CUST_FILTER_HANDLER = MessageHandler(
     CustomFilters.has_text & ~Filters.update.edited_message, reply_filter
 )
