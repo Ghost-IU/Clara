@@ -3,23 +3,36 @@ import re
 from typing import Optional
 
 import telegram
-from telegram import (CallbackQuery, Chat, InlineKeyboardButton,
-                      InlineKeyboardMarkup, Message, ParseMode, Update, User)
+from telegram import CallbackQuery
+from telegram import Chat
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import Message
+from telegram import ParseMode
+from telegram import Update
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import (CallbackContext, CallbackQueryHandler,
-                          CommandHandler, DispatcherHandlerStop, Filters,
-                          MessageHandler, run_async)
+from telegram.ext import CallbackContext
+from telegram.ext import CallbackQueryHandler
+from telegram.ext import CommandHandler
+from telegram.ext import DispatcherHandlerStop
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
-from SaitamaRobot import TIGERS, WOLVES, dispatcher
+from SaitamaRobot import dispatcher
+from SaitamaRobot import TIGERS
+from SaitamaRobot import WOLVES
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin,
-                                                           can_restrict,
-                                                           is_user_admin,
-                                                           user_admin,
-                                                           user_admin_no_reply)
-from SaitamaRobot.modules.helper_funcs.extraction import (
-    extract_text, extract_user, extract_user_and_text)
+from SaitamaRobot.modules.helper_funcs.chat_status import bot_admin
+from SaitamaRobot.modules.helper_funcs.chat_status import can_restrict
+from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
+from SaitamaRobot.modules.helper_funcs.chat_status import user_admin
+from SaitamaRobot.modules.helper_funcs.chat_status import user_admin_no_reply
+from SaitamaRobot.modules.helper_funcs.extraction import extract_text
+from SaitamaRobot.modules.helper_funcs.extraction import extract_user
+from SaitamaRobot.modules.helper_funcs.extraction import extract_user_and_text
 from SaitamaRobot.modules.helper_funcs.filters import CustomFilters
 from SaitamaRobot.modules.helper_funcs.misc import split_message
 from SaitamaRobot.modules.helper_funcs.string_handling import split_quotes
